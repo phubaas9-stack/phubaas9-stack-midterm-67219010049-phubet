@@ -1,23 +1,30 @@
+cat > /home/claude/project/style.css << 'CSSEOF'
 /* =========================================================
    Token system
-   Theme: "sticker book" — pastel scrapbook page for an
-   anime + kpop fan, cards sit like taped-in polaroids.
+   Theme: "night arena" — matte black + crimson, angular
+   clipped tags instead of soft stickers. Built for a guy
+   who games/watches anime/kpop, not a diary page.
    ========================================================= */
 :root {
-  --bg-1: #eef0ff;
-  --bg-2: #fdeffb;
-  --ink: #2e2a4a;
-  --ink-soft: #5c5580;
-  --surface: #fffdfb;
-  --pink: #ff6f9e;
-  --pink-deep: #e14f83;
-  --mint: #48d9c4;
-  --gold: #ffc145;
-  --lilac: #b9a9ff;
-  --shadow: rgba(46, 42, 74, 0.16);
+  --bg-0: #0a0a0c;
+  --bg-1: #121215;
+  --surface: #1a1a1f;
+  --surface-2: #201f26;
+  --line: #2c2b33;
+
+  --ink: #f2efe9;
+  --ink-soft: #9e9aa6;
+  --ink-dim: #6c6875;
+
+  --red: #e6273f;
+  --red-deep: #a3162a;
+  --red-glow: rgba(230, 39, 63, 0.35);
+  --gold: #c9a24b;
+  --steel: #5b6b78;
 
   --font-display: "Kanit", "Sarabun", sans-serif;
   --font-body: "Sarabun", "Kanit", sans-serif;
+  --font-tag: "Bebas Neue", "Kanit", sans-serif;
 }
 
 * {
@@ -30,12 +37,11 @@ body {
   font-family: var(--font-body);
   color: var(--ink);
   background:
-    radial-gradient(circle at 12% 8%, rgba(255, 111, 158, 0.18), transparent 40%),
-    radial-gradient(circle at 88% 15%, rgba(72, 217, 196, 0.18), transparent 45%),
-    radial-gradient(circle at 50% 90%, rgba(185, 169, 255, 0.22), transparent 50%),
-    linear-gradient(160deg, var(--bg-1), var(--bg-2));
+    radial-gradient(ellipse 900px 500px at 15% -5%, rgba(230, 39, 63, 0.16), transparent 55%),
+    radial-gradient(ellipse 700px 500px at 100% 30%, rgba(230, 39, 63, 0.08), transparent 55%),
+    linear-gradient(180deg, var(--bg-0), var(--bg-1) 60%);
   background-attachment: fixed;
-  padding: 48px 20px 80px;
+  padding: 48px 20px 90px;
 }
 
 .container {
@@ -44,161 +50,158 @@ body {
 }
 
 /* =========================================================
-   Profile header — a taped-in polaroid + a torn paper
-   info card, sitting side by side like a diary spread.
+   Profile header — dossier / ID-card feel: sharp corners,
+   a red edge rail on the left, corner brackets on the photo.
    ========================================================= */
 .profile-section {
   display: flex;
   align-items: center;
   gap: 32px;
-  background: var(--surface);
-  border-radius: 28px;
-  padding: 32px;
-  margin-bottom: 48px;
-  box-shadow: 0 18px 40px -12px var(--shadow);
+  background: linear-gradient(155deg, var(--surface), var(--surface-2));
+  border-radius: 6px;
+  padding: 32px 32px 32px 40px;
+  margin-bottom: 52px;
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--red);
   position: relative;
-  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 20px 44px -18px rgba(0, 0, 0, 0.7);
 }
 
 .profile-section::before {
-  content: "";
+  content: "MEMBER FILE";
   position: absolute;
-  top: -14px;
-  left: 48px;
-  width: 74px;
-  height: 26px;
-  background: rgba(255, 193, 69, 0.75);
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  transform: rotate(-6deg);
-  box-shadow: 0 4px 8px rgba(46, 42, 74, 0.12);
+  top: -11px;
+  left: 40px;
+  font-family: var(--font-tag);
+  font-size: 0.78rem;
+  letter-spacing: 3px;
+  color: var(--bg-0);
+  background: var(--red);
+  padding: 3px 12px;
+  clip-path: polygon(0 0, 100% 0, 94% 100%, 6% 100%);
 }
 
 .profile-img {
   width: 168px;
   height: 168px;
   object-fit: cover;
-  border-radius: 18px;
-  border: 6px solid #fff;
-  outline: 2px solid var(--pink);
-  outline-offset: 4px;
-  transform: rotate(-3deg);
+  border-radius: 4px;
+  border: 1px solid var(--line);
+  outline: 2px solid var(--red);
+  outline-offset: 5px;
   flex-shrink: 0;
-  box-shadow: 0 12px 24px -8px var(--shadow);
+  filter: grayscale(15%) contrast(1.05);
+  box-shadow: 0 14px 30px -10px rgba(0, 0, 0, 0.75);
 }
 
 .profile-info h1 {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: 2.1rem;
-  margin: 0 0 12px;
+  font-size: 2.2rem;
+  margin: 0 0 14px;
   color: var(--ink);
-  letter-spacing: 0.2px;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
 }
 
 .tag-row {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin: 0 0 16px;
+  margin: 0 0 18px;
   padding: 0;
 }
 
 .pill {
-  font-family: var(--font-display);
-  font-size: 0.82rem;
-  font-weight: 500;
-  color: #fff;
-  background: linear-gradient(135deg, var(--pink), var(--pink-deep));
+  font-family: var(--font-tag);
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+  font-weight: 400;
+  color: var(--ink);
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--red);
   padding: 6px 14px;
-  border-radius: 999px;
-  box-shadow: 0 4px 10px -3px rgba(225, 79, 131, 0.5);
+  border-radius: 3px;
 }
 
 .pill:nth-child(2) {
-  background: linear-gradient(135deg, var(--mint), #2fb9a4);
-  box-shadow: 0 4px 10px -3px rgba(47, 185, 164, 0.45);
+  border-left-color: var(--steel);
 }
 
 .pill:nth-child(3) {
-  background: linear-gradient(135deg, var(--lilac), #8f78f0);
-  box-shadow: 0 4px 10px -3px rgba(143, 120, 240, 0.45);
+  border-left-color: var(--gold);
 }
 
 .bio {
-  font-size: 0.98rem;
-  line-height: 1.7;
+  font-size: 0.96rem;
+  line-height: 1.75;
   color: var(--ink-soft);
   margin: 0;
-  max-width: 52ch;
+  max-width: 54ch;
 }
 
 /* =========================================================
    Section headers
    ========================================================= */
 .bento-section {
-  margin-bottom: 52px;
+  margin-bottom: 56px;
 }
 
 .bento-section h2 {
   font-family: var(--font-display);
-  font-size: 1.4rem;
+  font-size: 1.35rem;
   font-weight: 600;
   color: var(--ink);
-  margin: 0 0 22px;
-  display: inline-block;
-  position: relative;
-  padding-bottom: 6px;
+  margin: 0 0 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .bento-section h2::after {
   content: "";
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 60%;
-  height: 8px;
-  background: var(--mint);
-  opacity: 0.45;
-  border-radius: 4px;
-  z-index: -1;
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, var(--red), transparent);
 }
 
 /* =========================================================
-   Anime bento grid — sticker cards, gently tilted like a
-   collage, straighten up on hover.
+   Anime bento grid — squared cards, thin red top border,
+   corner-clipped rank flag, glow lift on hover.
    ========================================================= */
 .bento-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 22px;
+  gap: 20px;
 }
 
 .bento-card {
   background: var(--surface);
-  border-radius: 20px;
-  padding: 16px;
-  box-shadow: 0 14px 28px -14px var(--shadow);
+  border: 1px solid var(--line);
+  border-top: 2px solid var(--red-deep);
+  border-radius: 6px;
+  padding: 14px;
   position: relative;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-  transform: rotate(var(--tilt, -1.5deg));
+  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
 }
 
-.bento-card:nth-child(2n) { --tilt: 1.5deg; }
-.bento-card:nth-child(3n) { --tilt: -2deg; }
-
 .bento-card:hover {
-  transform: rotate(0deg) translateY(-6px);
-  box-shadow: 0 22px 36px -16px var(--shadow);
+  transform: translateY(-6px);
+  border-top-color: var(--red);
+  box-shadow: 0 20px 36px -16px rgba(0, 0, 0, 0.7), 0 0 0 1px var(--line), 0 0 30px -8px var(--red-glow);
 }
 
 .bento-card img {
   width: 100%;
   aspect-ratio: 3 / 4;
   object-fit: cover;
-  border-radius: 14px;
+  border-radius: 3px;
   margin-bottom: 12px;
   display: block;
-  background: linear-gradient(135deg, #f1f1fb, #ffe9f2);
+  background: linear-gradient(150deg, #232229, #17161b);
 }
 
 .bento-card h3 {
@@ -211,41 +214,40 @@ body {
 }
 
 .bento-card p {
-  font-size: 0.86rem;
-  color: var(--ink-soft);
+  font-size: 0.85rem;
+  color: var(--ink-dim);
   margin: 0;
   line-height: 1.6;
 }
 
 .card-rank1 {
-  grid-column: span 1;
-  border: 2px solid var(--gold);
-  transform: rotate(0deg) scale(1.02);
+  border-top-color: var(--gold);
+  box-shadow: 0 0 0 1px rgba(201, 162, 75, 0.35);
 }
 
 .card-rank1:hover {
-  transform: translateY(-6px) scale(1.02);
+  border-top-color: var(--gold);
+  box-shadow: 0 20px 36px -16px rgba(0, 0, 0, 0.7), 0 0 30px -8px rgba(201, 162, 75, 0.45);
 }
 
-/* rank ribbon — folded flag shape, the page's signature mark */
+/* rank flag — signature mark: sharp clipped ribbon, numeral
+   in the condensed tag font like a jersey number */
 .rank-tag {
   position: absolute;
-  top: 10px;
-  left: -8px;
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 0.82rem;
-  color: #fff;
-  background: linear-gradient(135deg, var(--pink), var(--pink-deep));
-  padding: 5px 14px 5px 12px;
-  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 10% 50%);
-  box-shadow: 0 4px 8px -2px rgba(225, 79, 131, 0.5);
+  top: -10px;
+  left: 12px;
+  font-family: var(--font-tag);
+  font-size: 1rem;
+  letter-spacing: 1px;
+  color: var(--bg-0);
+  background: var(--red);
+  padding: 3px 12px 3px 10px;
+  clip-path: polygon(0 0, 100% 0, 88% 100%, 0% 100%);
   z-index: 2;
 }
 
 .card-rank1 .rank-tag {
-  background: linear-gradient(135deg, var(--gold), #f4a11a);
-  box-shadow: 0 4px 8px -2px rgba(244, 161, 26, 0.55);
+  background: var(--gold);
 }
 
 /* =========================================================
@@ -254,35 +256,35 @@ body {
 .bento-grid-songs {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 22px;
+  gap: 20px;
 }
 
 .song-card {
   background: var(--surface);
-  border-radius: 18px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
   padding: 12px;
   position: relative;
-  box-shadow: 0 14px 26px -14px var(--shadow);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
 }
 
 .song-card:hover {
   transform: translateY(-6px);
-  box-shadow: 0 20px 32px -16px var(--shadow);
+  box-shadow: 0 18px 32px -16px rgba(0, 0, 0, 0.7), 0 0 24px -10px var(--red-glow);
 }
 
 .song-rank {
   position: absolute;
   top: -10px;
-  right: 14px;
-  background: linear-gradient(135deg, var(--mint), #2fb9a4);
-  color: #fff;
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 0.78rem;
-  padding: 5px 12px;
-  border-radius: 999px;
-  box-shadow: 0 4px 8px -2px rgba(47, 185, 164, 0.5);
+  right: 12px;
+  background: var(--bg-0);
+  border: 1px solid var(--red);
+  color: var(--red);
+  font-family: var(--font-tag);
+  font-size: 0.95rem;
+  letter-spacing: 1px;
+  padding: 2px 11px;
+  border-radius: 3px;
   z-index: 2;
 }
 
@@ -290,9 +292,10 @@ body {
   position: relative;
   width: 100%;
   aspect-ratio: 16 / 9;
-  border-radius: 12px;
+  border-radius: 4px;
   overflow: hidden;
-  background: #1c1a2e;
+  background: #000;
+  border: 1px solid var(--line);
 }
 
 .video-container iframe {
@@ -304,7 +307,7 @@ body {
 }
 
 .song-info {
-  padding: 12px 6px 4px;
+  padding: 12px 4px 4px;
 }
 
 .song-info h4 {
@@ -317,35 +320,38 @@ body {
 }
 
 /* =========================================================
-   CTA button
+   CTA button — pressed-metal look, angular clip corners
    ========================================================= */
 #alertBtn {
   display: block;
-  margin: 12px auto 0;
+  margin: 16px auto 0;
   font-family: var(--font-display);
   font-weight: 600;
   font-size: 1rem;
-  color: #fff;
-  background: linear-gradient(135deg, var(--pink), var(--lilac));
-  border: none;
-  padding: 16px 36px;
-  border-radius: 999px;
+  letter-spacing: 0.5px;
+  color: var(--ink);
+  background: linear-gradient(160deg, var(--surface-2), var(--bg-0));
+  border: 1px solid var(--red);
+  padding: 16px 40px;
+  border-radius: 4px;
+  clip-path: polygon(14px 0, 100% 0, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0 100%, 0 14px);
   cursor: pointer;
-  box-shadow: 0 14px 28px -10px rgba(225, 79, 131, 0.55);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 16px 30px -14px rgba(0, 0, 0, 0.75);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
 }
 
 #alertBtn:hover {
-  transform: translateY(-3px) scale(1.03);
-  box-shadow: 0 18px 32px -10px rgba(225, 79, 131, 0.6);
+  background: linear-gradient(160deg, var(--red-deep), var(--bg-0));
+  transform: translateY(-3px);
+  box-shadow: 0 20px 34px -14px rgba(0, 0, 0, 0.8), 0 0 26px -6px var(--red-glow);
 }
 
 #alertBtn:active {
-  transform: translateY(0) scale(0.98);
+  transform: translateY(0);
 }
 
 #alertBtn:focus-visible {
-  outline: 3px solid var(--ink);
+  outline: 2px solid var(--gold);
   outline-offset: 3px;
 }
 
@@ -356,6 +362,12 @@ body {
   .profile-section {
     flex-direction: column;
     text-align: center;
+    padding-left: 32px;
+  }
+
+  .profile-section::before {
+    left: 50%;
+    transform: translateX(-50%);
   }
 
   .tag-row {
@@ -365,11 +377,6 @@ body {
   .bento-grid,
   .bento-grid-songs {
     grid-template-columns: 1fr;
-  }
-
-  .bento-card,
-  .card-rank1 {
-    transform: rotate(0deg);
   }
 }
 
@@ -382,3 +389,12 @@ body {
     width: 128px;
     height: 128px;
   }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
+}
+CSSEOF
+echo "done"
