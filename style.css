@@ -1,34 +1,35 @@
-cat > /home/claude/project/style.css << 'CSSEOF'
 /* =========================================================
    Token system
-   Theme: "night arena" — matte black + crimson, angular
-   clipped tags instead of soft stickers. Built for a guy
-   who games/watches anime/kpop, not a diary page.
+   Theme: "studio frame" — bold agency-site energy inspired
+   by dark hero pages with a lit gradient border, glass stat
+   chips and one italic accent word in the headline.
    ========================================================= */
 :root {
-  --bg-0: #0a0a0c;
-  --bg-1: #121215;
-  --surface: #1a1a1f;
-  --surface-2: #201f26;
-  --line: #2c2b33;
+  --bg: #060606;
+  --bg-soft: #0d0d0d;
+  --surface: #131313;
+  --surface-2: #191919;
+  --line: rgba(255, 255, 255, 0.08);
 
-  --ink: #f2efe9;
-  --ink-soft: #9e9aa6;
-  --ink-dim: #6c6875;
+  --ink: #f5f3ef;
+  --ink-soft: #a8a49e;
+  --ink-dim: #6f6b66;
 
-  --red: #e6273f;
-  --red-deep: #a3162a;
-  --red-glow: rgba(230, 39, 63, 0.35);
-  --gold: #c9a24b;
-  --steel: #5b6b78;
+  --flame-1: #ff3d1f;
+  --flame-2: #ff8a1f;
+  --flame-3: #e0201f;
+  --glow: rgba(255, 90, 30, 0.35);
 
   --font-display: "Kanit", "Sarabun", sans-serif;
   --font-body: "Sarabun", "Kanit", sans-serif;
-  --font-tag: "Bebas Neue", "Kanit", sans-serif;
 }
 
 * {
   box-sizing: border-box;
+}
+
+html {
+  background: var(--bg);
 }
 
 body {
@@ -37,11 +38,23 @@ body {
   font-family: var(--font-body);
   color: var(--ink);
   background:
-    radial-gradient(ellipse 900px 500px at 15% -5%, rgba(230, 39, 63, 0.16), transparent 55%),
-    radial-gradient(ellipse 700px 500px at 100% 30%, rgba(230, 39, 63, 0.08), transparent 55%),
-    linear-gradient(180deg, var(--bg-0), var(--bg-1) 60%);
-  background-attachment: fixed;
-  padding: 48px 20px 90px;
+    radial-gradient(ellipse 1000px 560px at 50% -10%, rgba(255, 90, 30, 0.16), transparent 55%),
+    var(--bg);
+  padding: 40px 20px 90px;
+  position: relative;
+}
+
+/* signature element: the lit gradient frame around the whole
+   viewport, echoing the reference's glowing border edge */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 10px;
+  border: 3px solid transparent;
+  border-image: linear-gradient(150deg, var(--flame-1), var(--flame-2) 45%, var(--flame-3)) 1;
+  box-shadow: 0 0 60px -10px var(--glow) inset;
+  pointer-events: none;
+  z-index: 50;
 }
 
 .container {
@@ -49,164 +62,156 @@ body {
   margin: 0 auto;
 }
 
+.eyebrow {
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  color: var(--flame-2);
+  margin: 0 0 10px;
+  text-transform: uppercase;
+}
+
 /* =========================================================
-   Profile header — dossier / ID-card feel: sharp corners,
-   a red edge rail on the left, corner brackets on the photo.
+   Hero / profile section
    ========================================================= */
 .profile-section {
   display: flex;
   align-items: center;
-  gap: 32px;
-  background: linear-gradient(155deg, var(--surface), var(--surface-2));
-  border-radius: 6px;
-  padding: 32px 32px 32px 40px;
-  margin-bottom: 52px;
-  border: 1px solid var(--line);
-  border-left: 4px solid var(--red);
+  gap: 44px;
+  padding: 12px 4px 40px;
+  margin-bottom: 30px;
+  border-bottom: 1px solid var(--line);
   position: relative;
-  box-shadow: 0 20px 44px -18px rgba(0, 0, 0, 0.7);
-}
-
-.profile-section::before {
-  content: "MEMBER FILE";
-  position: absolute;
-  top: -11px;
-  left: 40px;
-  font-family: var(--font-tag);
-  font-size: 0.78rem;
-  letter-spacing: 3px;
-  color: var(--bg-0);
-  background: var(--red);
-  padding: 3px 12px;
-  clip-path: polygon(0 0, 100% 0, 94% 100%, 6% 100%);
 }
 
 .profile-img {
-  width: 168px;
-  height: 168px;
+  width: 190px;
+  height: 190px;
   object-fit: cover;
-  border-radius: 4px;
-  border: 1px solid var(--line);
-  outline: 2px solid var(--red);
-  outline-offset: 5px;
+  border-radius: 20px;
   flex-shrink: 0;
-  filter: grayscale(15%) contrast(1.05);
-  box-shadow: 0 14px 30px -10px rgba(0, 0, 0, 0.75);
+  border: 1px solid var(--line);
+  position: relative;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.04),
+    0 30px 60px -20px rgba(0, 0, 0, 0.9),
+    0 0 80px -20px var(--glow);
 }
 
 .profile-info h1 {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: 2.2rem;
-  margin: 0 0 14px;
+  font-size: 3rem;
+  line-height: 1.05;
+  margin: 0 0 18px;
   color: var(--ink);
-  letter-spacing: 0.3px;
-  text-transform: uppercase;
+  letter-spacing: -0.5px;
+}
+
+.accent {
+  font-style: italic;
+  font-weight: 600;
+  background: linear-gradient(100deg, var(--flame-2), var(--flame-1));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 .tag-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
-  margin: 0 0 18px;
+  gap: 12px;
+  margin: 0 0 22px;
   padding: 0;
 }
 
 .pill {
-  font-family: var(--font-tag);
-  font-size: 0.9rem;
-  letter-spacing: 1px;
-  font-weight: 400;
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 500;
   color: var(--ink);
-  background: var(--surface-2);
+  background: var(--surface);
   border: 1px solid var(--line);
-  border-left: 3px solid var(--red);
-  padding: 6px 14px;
-  border-radius: 3px;
+  border-radius: 12px;
+  padding: 10px 18px;
+  position: relative;
+  overflow: hidden;
 }
 
-.pill:nth-child(2) {
-  border-left-color: var(--steel);
-}
-
-.pill:nth-child(3) {
-  border-left-color: var(--gold);
+.pill::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: linear-gradient(180deg, var(--flame-2), var(--flame-1));
 }
 
 .bio {
-  font-size: 0.96rem;
-  line-height: 1.75;
+  font-size: 1rem;
+  line-height: 1.8;
   color: var(--ink-soft);
   margin: 0;
-  max-width: 54ch;
+  max-width: 56ch;
 }
 
 /* =========================================================
    Section headers
    ========================================================= */
 .bento-section {
-  margin-bottom: 56px;
+  margin-bottom: 60px;
+  padding-top: 44px;
 }
 
 .bento-section h2 {
   font-family: var(--font-display);
-  font-size: 1.35rem;
+  font-size: 2.1rem;
   font-weight: 600;
   color: var(--ink);
-  margin: 0 0 24px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.bento-section h2::after {
-  content: "";
-  flex: 1;
-  height: 1px;
-  background: linear-gradient(90deg, var(--red), transparent);
+  margin: 0 0 30px;
+  letter-spacing: -0.3px;
 }
 
 /* =========================================================
-   Anime bento grid — squared cards, thin red top border,
-   corner-clipped rank flag, glow lift on hover.
+   Anime bento grid — dark glass cards, orange corner glow
+   on hover, matching the reference's card language.
    ========================================================= */
 .bento-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  gap: 18px;
 }
 
 .bento-card {
-  background: var(--surface);
+  background: linear-gradient(165deg, var(--surface-2), var(--surface));
   border: 1px solid var(--line);
-  border-top: 2px solid var(--red-deep);
-  border-radius: 6px;
+  border-radius: 18px;
   padding: 14px;
   position: relative;
-  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
 }
 
 .bento-card:hover {
   transform: translateY(-6px);
-  border-top-color: var(--red);
-  box-shadow: 0 20px 36px -16px rgba(0, 0, 0, 0.7), 0 0 0 1px var(--line), 0 0 30px -8px var(--red-glow);
+  border-color: rgba(255, 138, 31, 0.4);
+  box-shadow: 0 24px 46px -20px rgba(0, 0, 0, 0.85), 0 0 40px -14px var(--glow);
 }
 
 .bento-card img {
   width: 100%;
   aspect-ratio: 3 / 4;
   object-fit: cover;
-  border-radius: 3px;
-  margin-bottom: 12px;
+  border-radius: 12px;
+  margin-bottom: 14px;
   display: block;
-  background: linear-gradient(150deg, #232229, #17161b);
+  background: linear-gradient(150deg, #201d1d, #100d0d);
 }
 
 .bento-card h3 {
   font-family: var(--font-display);
-  font-size: 1rem;
+  font-size: 1.02rem;
   font-weight: 600;
   margin: 0 0 6px;
   color: var(--ink);
@@ -221,33 +226,31 @@ body {
 }
 
 .card-rank1 {
-  border-top-color: var(--gold);
-  box-shadow: 0 0 0 1px rgba(201, 162, 75, 0.35);
+  border-color: rgba(255, 138, 31, 0.5);
+  box-shadow: 0 0 0 1px rgba(255, 138, 31, 0.15), 0 0 50px -18px var(--glow);
 }
 
-.card-rank1:hover {
-  border-top-color: var(--gold);
-  box-shadow: 0 20px 36px -16px rgba(0, 0, 0, 0.7), 0 0 30px -8px rgba(201, 162, 75, 0.45);
-}
-
-/* rank flag — signature mark: sharp clipped ribbon, numeral
-   in the condensed tag font like a jersey number */
+/* rank tag — small pill badge, top corner, flame gradient */
 .rank-tag {
   position: absolute;
-  top: -10px;
+  top: 12px;
   left: 12px;
-  font-family: var(--font-tag);
-  font-size: 1rem;
-  letter-spacing: 1px;
-  color: var(--bg-0);
-  background: var(--red);
-  padding: 3px 12px 3px 10px;
-  clip-path: polygon(0 0, 100% 0, 88% 100%, 0% 100%);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.78rem;
+  color: var(--ink);
+  background: rgba(6, 6, 6, 0.72);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 138, 31, 0.5);
+  padding: 4px 12px;
+  border-radius: 999px;
   z-index: 2;
 }
 
 .card-rank1 .rank-tag {
-  background: var(--gold);
+  background: linear-gradient(100deg, var(--flame-2), var(--flame-1));
+  border-color: transparent;
+  color: #17110a;
 }
 
 /* =========================================================
@@ -256,35 +259,37 @@ body {
 .bento-grid-songs {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  gap: 18px;
 }
 
 .song-card {
-  background: var(--surface);
+  background: linear-gradient(165deg, var(--surface-2), var(--surface));
   border: 1px solid var(--line);
-  border-radius: 6px;
+  border-radius: 18px;
   padding: 12px;
   position: relative;
-  transition: transform 0.22s ease, box-shadow 0.22s ease;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
 }
 
 .song-card:hover {
   transform: translateY(-6px);
-  box-shadow: 0 18px 32px -16px rgba(0, 0, 0, 0.7), 0 0 24px -10px var(--red-glow);
+  border-color: rgba(255, 138, 31, 0.4);
+  box-shadow: 0 22px 40px -20px rgba(0, 0, 0, 0.85), 0 0 34px -14px var(--glow);
 }
 
 .song-rank {
   position: absolute;
-  top: -10px;
+  top: 12px;
   right: 12px;
-  background: var(--bg-0);
-  border: 1px solid var(--red);
-  color: var(--red);
-  font-family: var(--font-tag);
-  font-size: 0.95rem;
-  letter-spacing: 1px;
-  padding: 2px 11px;
-  border-radius: 3px;
+  background: rgba(6, 6, 6, 0.72);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 138, 31, 0.5);
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.78rem;
+  padding: 4px 12px;
+  border-radius: 999px;
   z-index: 2;
 }
 
@@ -292,10 +297,9 @@ body {
   position: relative;
   width: 100%;
   aspect-ratio: 16 / 9;
-  border-radius: 4px;
+  border-radius: 12px;
   overflow: hidden;
   background: #000;
-  border: 1px solid var(--line);
 }
 
 .video-container iframe {
@@ -307,7 +311,7 @@ body {
 }
 
 .song-info {
-  padding: 12px 4px 4px;
+  padding: 14px 6px 4px;
 }
 
 .song-info h4 {
@@ -320,30 +324,44 @@ body {
 }
 
 /* =========================================================
-   CTA button — pressed-metal look, angular clip corners
+   CTA button — pill, white surface, orange arrow chip,
+   mirrors the reference's "Get started" button.
    ========================================================= */
 #alertBtn {
-  display: block;
-  margin: 16px auto 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin: 20px auto 0;
   font-family: var(--font-display);
   font-weight: 600;
   font-size: 1rem;
-  letter-spacing: 0.5px;
-  color: var(--ink);
-  background: linear-gradient(160deg, var(--surface-2), var(--bg-0));
-  border: 1px solid var(--red);
-  padding: 16px 40px;
-  border-radius: 4px;
-  clip-path: polygon(14px 0, 100% 0, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0 100%, 0 14px);
+  color: #17110a;
+  background: var(--ink);
+  border: none;
+  padding: 8px 8px 8px 26px;
+  border-radius: 999px;
   cursor: pointer;
-  box-shadow: 0 16px 30px -14px rgba(0, 0, 0, 0.75);
-  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  box-shadow: 0 20px 40px -16px rgba(0, 0, 0, 0.7);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+#alertBtn::after {
+  content: "→";
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--flame-2), var(--flame-1));
+  color: var(--ink);
+  font-size: 1rem;
 }
 
 #alertBtn:hover {
-  background: linear-gradient(160deg, var(--red-deep), var(--bg-0));
   transform: translateY(-3px);
-  box-shadow: 0 20px 34px -14px rgba(0, 0, 0, 0.8), 0 0 26px -6px var(--red-glow);
+  box-shadow: 0 24px 44px -16px rgba(0, 0, 0, 0.75), 0 0 30px -8px var(--glow);
 }
 
 #alertBtn:active {
@@ -351,7 +369,7 @@ body {
 }
 
 #alertBtn:focus-visible {
-  outline: 2px solid var(--gold);
+  outline: 2px solid var(--flame-2);
   outline-offset: 3px;
 }
 
@@ -359,19 +377,21 @@ body {
    Responsive
    ========================================================= */
 @media (max-width: 760px) {
+  body::after {
+    inset: 6px;
+  }
+
   .profile-section {
     flex-direction: column;
     text-align: center;
-    padding-left: 32px;
-  }
-
-  .profile-section::before {
-    left: 50%;
-    transform: translateX(-50%);
   }
 
   .tag-row {
     justify-content: center;
+  }
+
+  .profile-info h1 {
+    font-size: 2.2rem;
   }
 
   .bento-grid,
@@ -382,12 +402,12 @@ body {
 
 @media (max-width: 500px) {
   body {
-    padding: 32px 14px 60px;
+    padding: 26px 14px 60px;
   }
 
   .profile-img {
-    width: 128px;
-    height: 128px;
+    width: 140px;
+    height: 140px;
   }
 }
 
@@ -396,5 +416,3 @@ body {
     transition: none !important;
   }
 }
-CSSEOF
-echo "done"
